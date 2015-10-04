@@ -27,6 +27,7 @@
 #   ['trusted_node_data']     - Enable the trusted facts hash
 #   ['listen']                - If puppet agent should listen for connections
 #   ['reportserver']          - The server to send transaction reports to.
+#   ['ca_server']             - The CA server.
 #   ['digest_algorithm']      - The algorithm to use for file digests.
 #   ['templatedir']           - Template dir, if unset it will remove the setting.
 #   ['configtimeout']         - How long the client should wait for the configuration to be retrieved before considering it a failure
@@ -86,6 +87,7 @@ class puppet::agent(
   $pluginsync             = true,
   $listen                 = false,
   $reportserver           = '$server',
+  $ca_server           = '$server',
   $digest_algorithm       = $::puppet::params::digest_algorithm,
   $configtimeout          = '2m',
   $stringify_facts        = undef,
@@ -325,6 +327,10 @@ class puppet::agent(
   ini_setting {'puppetagentreportserver':
     setting => 'reportserver',
     value   => $reportserver,
+  }
+  ini_setting {'puppetagentcaserver':
+    setting => 'ca_server',
+    value   => $ca_server,
   }
   ini_setting {'puppetagentdigestalgorithm':
     setting => 'digest_algorithm',
